@@ -1,0 +1,27 @@
+apply plugin: 'kotlin-platform-js'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src'
+    test.kotlin.srcDirs += 'test'
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    expectedBy project(':kmulti-math-common')
+}
+
+def target = "${projectDir}/build/classes/main"
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$target/kmulti-math.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'umd'
+}

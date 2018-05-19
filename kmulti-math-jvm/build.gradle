@@ -1,0 +1,17 @@
+apply plugin: 'kotlin-platform-jvm'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src'
+    test.kotlin.srcDirs += 'test'
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}

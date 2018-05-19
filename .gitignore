@@ -1,0 +1,11 @@
+# Vim swap files
+*.swp
+
+# Gradle build output
+.gradle/
+build/
+out/
+gradle/
+
+# IntelliJ files
+.idea/

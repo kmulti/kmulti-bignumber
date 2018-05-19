@@ -1,0 +1,125 @@
+buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
+    }
+}
+
+allprojects {
+    group 'io.github.kmulti'
+    version '1.2.41.1'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: "kotlin"
+
+subprojects {
+
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+
+    afterEvaluate {
+        task sourceJar(type: Jar, dependsOn: classes) {
+            classifier 'sources'
+            from sourceSets.main.kotlin
+            duplicatesStrategy = "exclude"
+            def platformSrc = sourceSets.main.kotlin
+            def commonSrc = project(':kmulti-math-common').sourceSets.main.kotlin
+            from (platformSrc + commonSrc)
+        }
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+    }
+
+    def varintName = "${project.name}"
+    tasks.withType(Jar) {
+        archivesBaseName = varintName
+    }
+
+    // Create the pom configuration:
+    def pomConfig = {
+        name "kmulti-math"
+        description "kmulti-math $version - Kotlin multiplatform Math library (incl. BigDecimal)"
+        url "https://github.com/kmulti/kmulti-math"
+
+        scm {
+            url "https://github.com/kmulti/kmulti-math/tree/master"
+            connection "scm:git:git://github.com/kmulti/kmulti-math.git"
+            developerConnection "scm:git:ssh://github.com:kmulti/kmulti-math.git"
+        }
+        licenses {
+            license {
+                name "The Apache Software License, Version 2.0"
+                url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id "abissell"
+                name "Andrew Bissell"
+                email "abissell@gmail.com"
+            }
+        }
+    }
+
+    publishing {
+        publications {
+            mavenProject(MavenPublication) {
+                from components.java
+                groupId project.group
+                artifactId varintName
+                version project.version
+
+                pom.withXml {
+                    def root = asNode()
+                    root.appendNode('description', "kmulti-math $version - Kotlin multiplatform Math library (incl. BigDecimal)")
+                    root.children().last() + pomConfig
+                }
+
+                artifact sourceJar {
+                    classifier "sources"
+                }
+
+                artifact javadocJar {
+                    classifier "javadoc"
+                }
+            }
+        }
+    }
+
+    bintray {
+        user = System.getProperty('bintray.user')
+        key = System.getProperty('bintray.key')
+        publications = ['mavenProject']
+        pkg {
+            repo = 'kmulti-math'
+            name = 'kmulti-math'
+            userOrg = 'kmulti'
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/kmulti/kmulti-math'
+            websiteUrl = 'https://github.com/kmulti/kmulti-math'
+            issueTrackerUrl = 'https://github.com/kmulti/kmulti-math/issues'
+
+            githubRepo = 'kmulti/kmulti-math'
+            version {
+                name = project.version
+                desc = "kmulti-math - Kotlin multiplatform Math library (incl. BigDecimal)"
+                released = new Date()
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'kmulti-math'
+include ':kmulti-math-jvm'
+include ':kmulti-math-js'
+include ':kmulti-math-common'
