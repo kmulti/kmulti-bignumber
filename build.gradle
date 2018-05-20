@@ -35,7 +35,7 @@ subprojects {
             from sourceSets.main.kotlin
             duplicatesStrategy = "exclude"
             def platformSrc = sourceSets.main.kotlin
-            def commonSrc = project(':kmulti-math-common').sourceSets.main.kotlin
+            def commonSrc = project(':kmulti-bignumber-common').sourceSets.main.kotlin
             from (platformSrc + commonSrc)
         }
 
@@ -52,14 +52,14 @@ subprojects {
 
     // Create the pom configuration:
     def pomConfig = {
-        name "kmulti-math"
-        description "kmulti-math $version - Kotlin multiplatform Math library (incl. BigDecimal)"
-        url "https://github.com/kmulti/kmulti-math"
+        name "kmulti-bignumber"
+        description "kmulti-bignumber $version - Kotlin multiplatform BigDecimal and BigInteger library"
+        url "https://github.com/kmulti/kmulti-bignumber"
 
         scm {
-            url "https://github.com/kmulti/kmulti-math/tree/master"
-            connection "scm:git:git://github.com/kmulti/kmulti-math.git"
-            developerConnection "scm:git:ssh://github.com:kmulti/kmulti-math.git"
+            url "https://github.com/kmulti/kmulti-bignumber/tree/master"
+            connection "scm:git:git://github.com/kmulti/kmulti-bignumber.git"
+            developerConnection "scm:git:ssh://github.com:kmulti/kmulti-bignumber.git"
         }
         licenses {
             license {
@@ -86,7 +86,7 @@ subprojects {
 
                 pom.withXml {
                     def root = asNode()
-                    root.appendNode('description', "kmulti-math $version - Kotlin multiplatform Math library (incl. BigDecimal)")
+                    root.appendNode('description', "kmulti-bignumber $version - Kotlin multiplatform BigDecimal and BigInteger library")
                     root.children().last() + pomConfig
                 }
 
@@ -106,18 +106,18 @@ subprojects {
         key = System.getProperty('bintray.key')
         publications = ['mavenProject']
         pkg {
-            repo = 'kmulti-math'
-            name = 'kmulti-math'
+            repo = 'kmulti-bignumber'
+            name = 'kmulti-bignumber'
             userOrg = 'kmulti'
             licenses = ['Apache-2.0']
-            vcsUrl = 'https://github.com/kmulti/kmulti-math'
-            websiteUrl = 'https://github.com/kmulti/kmulti-math'
-            issueTrackerUrl = 'https://github.com/kmulti/kmulti-math/issues'
+            vcsUrl = 'https://github.com/kmulti/kmulti-bignumber'
+            websiteUrl = 'https://github.com/kmulti/kmulti-bignumber'
+            issueTrackerUrl = 'https://github.com/kmulti/kmulti-bignumber/issues'
 
-            githubRepo = 'kmulti/kmulti-math'
+            githubRepo = 'kmulti/kmulti-bignumber'
             version {
                 name = project.version
-                desc = "kmulti-math - Kotlin multiplatform Math library (incl. BigDecimal)"
+                desc = "kmulti-bignumber - Kotlin multiplatform BigDecimal and BigInteger library"
                 released = new Date()
             }
         }

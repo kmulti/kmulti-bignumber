@@ -1,4 +1,4 @@
-rootProject.name = 'kmulti-math'
-include ':kmulti-math-jvm'
-include ':kmulti-math-js'
-include ':kmulti-math-common'
+rootProject.name = 'kmulti-bignumber'
+include ':kmulti-bignumber-jvm'
+include ':kmulti-bignumber-js'
+include ':kmulti-bignumber-common'
