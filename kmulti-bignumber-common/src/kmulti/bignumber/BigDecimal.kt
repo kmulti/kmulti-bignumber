@@ -2,12 +2,15 @@ package kmulti.bignumber
 
 /**
  * Multiplatform `expect` declaration for immutable, arbitrary-precision signed decimal numbers.
+ *
+ * Ideally this class would extend [Number][kotlin.Number] but we are currently unable to do this
+ * due to https://youtrack.jetbrains.com/issue/KT-17345
+ *
  * @see kotlin.util.BigDecimals
  *
  * @author Andrew Bissell
  */
-expect class BigDecimal : Number, Comparable<BigDecimal> {
-    constructor(strVal: String)
+expect class BigDecimal(strVal: String) : /*Number,*/ Comparable<BigDecimal> {
     constructor(doubleVal: Double)
     constructor(intVal: Int)
     constructor(longVal: Long)

@@ -14,12 +14,20 @@ repositories {
 Use these dependencies per Kotlin module respectively:
 
 ```
-compile 'io.github.kmulti:kmulti-bignumber-common:1.2.41.1'
-compile 'io.github.kmulti:kmulti-bignumber-js:1.2.41.1'
-compile 'io.github.kmulti:kmulti-bignumber-jvm:1.2.41.1'
+compile 'io.github.kmulti:kmulti-bignumber-common:1.2.41.2'
+compile 'io.github.kmulti:kmulti-bignumber-js:1.2.41.2'
+compile 'io.github.kmulti:kmulti-bignumber-jvm:1.2.41.2'
 ```
 
 ## Usage Notes
+
+:no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign:
+
+The JS subproject is just a stub implementation atop `Double`. Do not use it
+unless you are okay with the usual floating point arithmetic surprises. The JVM subproject
+unit tests show some of the invariants currently not satisfied by the JS implementation.
+
+:no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign::no_entry_sign:
 
 The behavior of `java.math.BigDecimal` with respect to
 [structural equality](https://kotlinlang.org/docs/reference/equality.html) is preserved, i.e. in Java:

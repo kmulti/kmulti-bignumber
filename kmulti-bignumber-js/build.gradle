@@ -1,4 +1,5 @@
 apply plugin: 'kotlin-platform-js'
+apply plugin: 'com.moowork.node'
 
 repositories {
     mavenCentral()
@@ -19,9 +20,37 @@ dependencies {
 
 def target = "${projectDir}/build/classes/main"
 
-compileKotlin2Js {
-    kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$target/kmulti-bignumber.js"
-    kotlinOptions.sourceMap = true
-    kotlinOptions.moduleKind = 'umd'
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions {
+        metaInfo = true
+        sourceMap = true
+        sourceMapEmbedSources = "always"
+        moduleKind = 'umd'
+    }
 }
+
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    configurations.testCompile.each {
+        from zipTree(it.absolutePath).matching { include '*.js' }
+    }
+
+    into "${buildDir}/node_modules"
+}
+
+node {
+    version = node_version
+    download = true
+}
+
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha']
+}
+
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha]) {
+    script = file('node_modules/mocha/bin/mocha')
+    args = [compileTestKotlin2Js.outputFile]
+}
+
+test.dependsOn runMocha

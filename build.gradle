@@ -7,15 +7,19 @@ buildscript {
         jcenter()
     }
 
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
+     dependencies {
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.8.0"
+    id "com.moowork.node" version "1.2.0"
 }
 
 allprojects {
     group 'io.github.kmulti'
-    version '1.2.41.1'
+    version '1.2.41.2'
 
     repositories {
         mavenCentral()

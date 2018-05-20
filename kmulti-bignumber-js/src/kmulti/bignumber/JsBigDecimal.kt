@@ -1,76 +1,38 @@
 package kmulti.bignumber
 
-actual class BigDecimal() : Number(), Comparable<BigDecimal> {
+/**
+ * @author Andrew Bissell
+ */
+actual class BigDecimal actual constructor(private val doubleVal: Double) : /* Number(),*/
+    Comparable<BigDecimal> {
 
-    actual constructor(strVal: String) : this() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual constructor(strVal: String) : this(strVal.toDouble())
+    actual constructor(intVal: Int) : this(intVal.toDouble())
+    actual constructor(longVal: Long) : this(longVal.toDouble())
 
-    actual constructor(doubleVal: Double) : this() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun compareTo(other: BigDecimal): Int = doubleVal.compareTo(other.doubleVal)
 
-    actual constructor(intVal: Int) : this() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    // These can become override methods once we are able to extend kotlin.Number
+    fun toByte(): Byte = doubleVal.toByte()
+    fun toChar(): Char = doubleVal.toChar()
+    fun toDouble(): Double = doubleVal
+    fun toFloat(): Float = doubleVal.toFloat()
+    fun toInt(): Int = doubleVal.toInt()
+    fun toLong(): Long = doubleVal.toLong()
+    fun toShort(): Short = doubleVal.toShort()
 
-    actual constructor(longVal: Long) : this() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual fun add(augend: BigDecimal): BigDecimal = BigDecimal(doubleVal + augend.doubleVal)
 
-    override fun compareTo(other: BigDecimal): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual fun subtract(subtrahend: BigDecimal): BigDecimal =
+        BigDecimal(doubleVal + subtrahend.doubleVal)
 
-    override fun toByte(): Byte {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual fun multiply(multiplicand: BigDecimal): BigDecimal =
+        BigDecimal(doubleVal * multiplicand.doubleVal)
 
-    override fun toChar(): Char {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual fun divide(divisor: BigDecimal): BigDecimal = BigDecimal(doubleVal / divisor.doubleVal)
 
-    override fun toDouble(): Double {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    actual fun remainder(divisor: BigDecimal): BigDecimal =
+        BigDecimal(doubleVal % divisor.doubleVal)
 
-    override fun toFloat(): Float {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun toInt(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun toLong(): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun toShort(): Short {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    actual fun add(augend: BigDecimal): BigDecimal {
-        throw Exception("Not implemented")
-    }
-
-    actual fun subtract(subtrahend: BigDecimal): BigDecimal {
-        throw Exception("Not implemented")
-    }
-
-    actual fun multiply(multiplicand: BigDecimal): BigDecimal {
-        throw Exception("Not implemented")
-    }
-
-    actual fun divide(divisor: BigDecimal): BigDecimal {
-        throw Exception("Not implemented")
-    }
-
-    actual fun remainder(divisor: BigDecimal): BigDecimal {
-        throw Exception("Not implemented")
-    }
-
-    actual fun negate(): BigDecimal {
-        throw Exception("Not implemented")
-    }
+    actual fun negate(): BigDecimal = this * NEGATIVE_ONE
 }

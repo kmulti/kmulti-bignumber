@@ -6,6 +6,8 @@
 build/
 out/
 gradle/
+node_modules/
+package-lock.json
 
 # IntelliJ files
 .idea/
